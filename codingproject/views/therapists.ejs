@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>home</title>
+</head>
+<body>
+    <script>
+        async function edit(id) {
+            const inp = document.getElementById("id")
+            inp.value = id
+        }
+
+        async function del(id) {
+            await fetch('/therapists/delete', {
+                method: 'POST',
+                body: JSON.stringify({
+                    id
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+
+            window.location.reload();
+        }
+    </script>
+
+    <link rel="stylesheet" href="/assets/styles.css" />
+
+    <nav id="nav">
+        <ul>
+            <li>
+                <a href="/clients">Clients</a>
+            </li>
+
+            <li>
+                <a class="active" href="/therapists">Therapists</a>
+            </li>
+            
+            <li>
+                <a href="/sessions">Sessions</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="table"> 
+    <table cellspacing="0">
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>phone number</th>
+            <th>email</th>
+            <th>address</th>
+            <th></th>
+            <th></th>
+        </tr>
+
+        <% for (let i = 0; i < therapists.length; ++i) { %>
+            <tr>
+                <td> <%= therapists[i].id %> </td>
+                <td> <%= therapists[i].title + " " + therapists[i].firstName + " " + therapists[i].lastName %> </td>
+                <td> <%= therapists[i].phoneNumber %> </td>
+                <td> <%= therapists[i].email %> </td>
+                <td> <%=
+                     therapists[i].addressLine1 + " " + therapists[i].addressLine2 + " " + therapists[i].town + " " + therapists[i].city  %> </td>
+                <td> 
+                    <button class="edit" onClick="edit('<%= therapists[i].id %>')"">edit</button>
+                </td>
+
+                <td>
+                    <button class="del" onClick="del('<%= therapists[i]._id %>')"">delete</button>
+                </td>
+            </tr>
+        <% } %>
+    </table>
+    </div>
+    
+    <form action="/therapists/create" method="post">
+        <h3>Therapist details</h3>
+        <br />
+        
+        <label>id </label> <br />
+        <input type="number" id="id" name="id"></input> 
+        <br />
+
+        <label>title </label> <br />
+        <select id="title" name="title">
+            <option value="mr">mr</option>
+            <option value="mrs">mrs</option>
+        </select>
+        <br />
+
+        <label>firstName </label> <br />
+        <input type="text" id="firstName" name="firstName"></input>
+        <br />
+
+        <label>lastName </label> <br />
+        <input type="text" id="lastName" name="lastName"></input>
+        <br />
+
+        <label>email </label> <br />
+        <input type="text" id="email" name="email"></input>
+        <br />
+
+        <label>phoneNumber </label> <br />
+        <input type="text" id="phoneNumber" name="phoneNumber"></input>
+        <br />
+
+
+        <label>addressLine1 </label> <br />
+        <input type="text" id="addressLine1" name="addressLine1"></input>
+        <br />
+
+        <label>addressLine2 </label> <br />
+        <input type="text" id="addressLine2" name="addressLine2"></input>
+        <br />
+
+        <label>town </label> <br />
+        <input type="text" id="town" name="town"></input>
+        <br />
+
+        <label>city </label> <br />
+        <input type="text" id="city" name="city"></input>
+        <br />
+
+        <label>eirCode </label> <br />
+        <input type ="text" id="eirCode" name="eirCode"></input>
+        <br />
+
+        <input type = "submit" value ="create" name ="operation"></input>
+        <input type = "submit" value ="update" name ="operation"></input>
+    </form>
+</body>
+</html>

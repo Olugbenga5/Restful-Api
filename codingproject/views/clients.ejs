@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>home</title>
+</head>
+<body>
+    <script>
+        async function edit(id) {
+            const inp = document.getElementById("id")
+            inp.value = id
+        }
+
+        async function del(id) {
+            await fetch('/clients/delete', {
+                method: 'POST',
+                body: JSON.stringify({
+                    id
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+
+            window.location.reload();
+        }
+    </script>
+
+    <link rel="stylesheet" href="/assets/styles.css" />
+
+    <nav id="nav">
+        <ul>
+            <li>
+                <a class="active" href="/clients">Clients</a>
+            </li>
+
+            <li>
+                <a href="/therapists">Therapists</a>
+            </li>
+            
+            <li>
+                <a href="/sessions">Sessions</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="table">
+    <table cellspacing="0">
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>phone number</th>
+            <th>email</th>
+            <th>address</th>
+            <th>dob</th>
+            <th>guardian name</th>
+            <th>permission to leave message</th>
+            <th>gender</th>
+            <th>marital status</th>
+            <th>referrer</th>
+            <th></th>
+            <th></th>
+        </tr>
+
+        <% for (let i = 0; i < clients.length; ++i) { %>
+            <tr>
+                <td> <%= clients[i].id %> </td>
+                <td> <%= clients[i].title + " " + clients[i].firstName + " " + clients[i].lastName %> </td>
+                <td> <%= clients[i].phoneNumber %> </td>
+                <td> <%= clients[i].email %> </td>
+                <td> <%=
+                     clients[i].addressLine1 + " " + clients[i].addressLine2 + " " + clients[i].town + " " + clients[i].city  %> </td>
+                <td> <%= clients[i].dob %> </td>
+                <td> <%= clients[i].guardianName %> </td>
+                <td> <%= clients[i].permissionToLeaveMessage %> </td>
+                <td> <%= clients[i].gender %> </td>
+                <td> <%= clients[i].maritalStatus %> </td>
+                <td> <%= clients[i].referrer %> </td>
+                <td> 
+                    <button class="edit" onClick="edit('<%= clients[i].id %>')"">edit</button>
+                </td>
+
+                <td>
+                    <button class="del" onClick="del('<%= clients[i]._id %>')"">delete</button>
+                </td>
+            </tr>
+        <% } %>
+    </table>
+    </div>
+    
+    <form action="/clients/create" method="post">
+        <h3>Client details</h3>
+        <br />
+
+        <label>id </label> <br />
+        <input type="number" id="id" name="id"></input> 
+        <br />
+
+        <label>title </label> <br />
+        <select id="title" name="title">
+            <option value="mr">mr</option>
+            <option value="mrs">mrs</option>
+        </select>
+        <br />
+
+        <label>firstName </label> <br />
+        <input type="text" id="firstName" name="firstName"></input>
+        <br />
+
+        <label>lastName </label> <br />
+        <input type="text" id="lastName" name="lastName"></input>
+        <br />
+
+        <label>phoneNumber </label> <br />
+        <input type="text" id="phoneNumber" name="phoneNumber"></input>
+        <br />
+
+        <label>email </label> <br />
+        <input type="text" id="email" name="email"></input>
+        <br />
+
+        <label>addressLine1 </label> <br />
+        <input type="text" id="addressLine1" name="addressLine1"></input>
+        <br />
+
+        <label>addressLine2 </label> <br />
+        <input type="text" id="addressLine2" name="addressLine2"></input>
+        <br />
+
+        <label>city </label> <br />
+        <input type="text" id="city" name="city"></input>
+        <br />
+
+        <label>town </label> <br />
+        <input type="text" id="town" name="town"></input>
+        <br />
+
+        <label>eirCode </label> <br />
+        <input type="text" id="eirCode" name="eirCode"></input>
+        <br />
+
+        <label>dob </label> <br />
+        <input type="date" id="dob" name="dob"></input>
+        <br />
+
+        <label>guardianName </label> <br />
+        <input type="text" id="guardianName" name="guardianName"></input>
+        <br />
+
+        <label>permissionToLeaveMessage </label> <br />
+        <select id="permissionToLeaveMessage" name="permissionToLeaveMessage">
+            <option value="yes">yes</option>
+            <option value="no">no</option>
+        </select>
+        <br />
+
+        
+         <label>maritalStatus </label> <br />
+        <select id="maritalStatus" name="maritalStatus">
+            <option value="married">married</option>
+            <option value="not married">not married</option>
+        </select>
+        <br />
+
+        <label>gender </label> <br />
+        <select id="gender" name="gender">
+            <option value="male">male</option>
+            <option value="female">female</option>
+        </select>
+        <br />
+
+       
+
+        <label>referrer </label> <br />
+        <input type="text" id="referrer" name="referrer"></input>
+        <br />
+
+        <input type="submit" value="create" name="operation"></input>
+        <input type="submit" value="update" name="operation"></input>
+    </form>
+</body>
+</html>

@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+*, *::after, *::before {
+    margin: 0;
+    padding: 0;
+}
+
+button {
+    cursor: pointer;
+}
+
+body {
+    font-family: 'roboto';
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#nav {
+    background-color: rgb(30, 18, 122);
+    width: 100%;
+}
+
+#nav ul {
+    display: flex;
+    list-style: none;
+}
+
+#nav li {
+    margin: 14px;
+    padding: 10px 0;
+}
+
+#nav a {
+    text-decoration: none;
+    color: white;
+}
+
+#nav a.active {
+    text-decoration: underline;
+}
+
+form {
+    width: 400px;;
+    display: flex;
+    flex-direction: column;
+    margin: 50px;
+    border: 2px solid blueviolet;
+    padding: 30px;
+}
+
+form label {
+    margin-bottom: -14px;
+    color: rgb(50, 50, 50);
+}
+
+form input {
+    height: 30px;
+    border: 2px solid blueviolet;
+    outline: none;
+}
+
+form select {
+    height: 40px;
+    border: 2px solid blueviolet;
+    outline: none;
+}
+
+form input[type='submit'] {
+    margin: 10px 25px;
+    background-color: blueviolet;
+    outline: none;
+    color: white;
+    font-family: roboto;
+    height: 40px;
+    border-radius: 35px;
+    cursor: pointer;
+}
+
+h3 {
+    color: blueviolet;  
+    font-size: 32px;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 15px;
+    margin-top: 10px;
+}
+
+td, th {
+    padding: 13px 24px;
+    color: #303030;
+    font-size: 14px;
+    text-align: center;
+}
+
+th {
+    color: white;
+}
+
+tr:nth-child(1) {
+    background-color: rgb(30, 18, 122);
+}
+
+tr:nth-child(1) th {
+    padding: 25px auto;
+}
+
+tr button.edit {
+    width: 60px;
+    height: 30px;
+    background-color: rgb(30, 18, 122);
+    color: white;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+}
+
+tr button.del {
+    width: 60px;
+    height: 30px;
+    background-color: rgb(17, 13, 13);
+    color: rgb(76, 76, 120);
+    outline: none;
+    border: none;
+    border-radius: 5px;
+}
+
+body {
+    width: 100vw;
+    overflow-x: hidden;
+}
+
+table {
+    width: 100%;
+}
+
+.table {
+    margin: 0;
+    width: 100%;
+    max-width: 100vw;
+    overflow: scroll;
+}

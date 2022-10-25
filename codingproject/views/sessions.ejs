@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>home</title>
+</head>
+<body>
+    <script>
+        async function edit(id) {
+            const inp = document.getElementById("id")
+            inp.value = id
+        }
+
+        async function del(id) {
+            await fetch('/sessions/delete', {
+                method: 'POST',
+                body: JSON.stringify({
+                    id
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+
+            window.location.reload();
+        }
+    </script>
+
+    <link rel="stylesheet" href="/assets/styles.css" />
+
+    <nav id="nav">
+        <ul>
+            <li>
+                <a href="/clients">Clients</a>
+            </li>
+
+            <li>
+                <a href="/therapists">Therapists</a>
+            </li>
+            
+            <li>
+                <a class="active" href="/sessions">Sessions</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="table">
+    <table cellspacing="0">
+        <tr>
+            <th>date</th>
+            <th>clients</th>
+            <th>session</th>
+            <th>fee</th>
+            <th>number</th>
+            <th>attendance</th>
+            <th>type</th>
+            <th>notes</th>
+            <th></th>
+            <th></th>
+        </tr>
+
+        <% for (let i = 0; i < sessions.length; ++i) { %>
+            <tr>
+                <td> <%= sessions[i].id %> </td>
+                <td> <%= sessions[i].clients.filter(x => x).join(', ') %> </td>
+                <td> <%= sessions[i].therapist %> </td>
+                <td> <%= sessions[i].fee %> </td>
+                <td> <%= sessions[i].number %> </td>
+                <td> <%= sessions[i].attendance %> </td>
+                <td> <%= sessions[i].type %> </td>
+                <td> <%= sessions[i].notes %> </td>
+                
+                <td> 
+                    <button class="edit" onClick="edit('<%= sessions[i].id %>')"">edit</button>
+                </td>
+
+                <td>
+                    <button class="del" onClick="del('<%= sessions[i]._id %>')"">delete</button>
+                </td>
+            </tr>
+        <% } %>
+    </table>
+    </div>
+    
+    <form action="/sessions/create" method="post">
+        <h3>Session details</h3>
+        <br />
+        
+        <label>id </label> <br />
+        <input type="number" id="id" name="id"></input> 
+        <br />
+
+        <label>client1 </label> <br />
+        <input type="number" id="client1" name="client1"></input> 
+        <br />
+
+        <label>client2 </label> <br />
+        <input type="number" id="client2" name="client2"></input> 
+        <br />
+
+        <label>client3 </label> <br />
+        <input type="number" id="client3" name="client3"></input> 
+        <br />
+
+        <label>therapist </label> <br />
+        <input type="number" id="therapist" name="therapist"></input>
+        <br />
+
+        <label>number </label> <br />
+        <input type="number" id="number" name="number"></input>
+        <br />
+
+
+
+        <label>fee </label> <br />
+        <input type="number" id="fee" name="fee"></input>
+        <br />
+
+        
+
+        <label>attendance </label> <br />
+        <select id="attendance" name="attendance">
+            <option value="attended">attended</option>
+            <option value="cancelled">cancelled</option>
+            <option value="no show">no show</option>
+        </select>
+        <br />
+
+        <label>type </label> <br />
+        <select id="type" name="type">
+            <option value="intake">intake</option>
+            <option value="psychotherapy">psychotherapy</option>
+            <option value="assessment">assessment</option>
+        </select>
+        <br />
+
+        <label>notes </label> <br />
+        <input type="text" id="notes" name="notes"></input>
+        <br />
+
+        <input type="submit" value="create" name="operation"></input>
+        <input type="submit" value="update" name="operation"></input>
+    </form>
+</body>
+</html>
